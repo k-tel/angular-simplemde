@@ -1,27 +1,91 @@
-# AngularSimplemde
+# Angular Simplemde 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.9.
+This is a angular wrapper for [SimpleMDE](https://github.com/sparksuite/simplemde-markdown-editor).
 
-## Development server
+## Install
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+``` bash
+npm install simplemde angular-simplemde
+```
 
-## Code scaffolding
+Then import `AngularSimplemdeModule` in your central module.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Finally, your project should import `node_modules/simplemde/dist/simepmde.min.css`. If you are using Angular CLI, this can 
+be done in `angular.json` like this:
 
-## Build
+```
+// ...
+    "styles": [
+      // other styles...
+      "node_modules/simplemde/dist/simplemde.min.css"
+    ],
+// ...
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## How to use
 
-## Running unit tests
+For the simplest use-case, just use the component like this
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```html
+<angular-simplemde [(input)]="yourInputVariable"></angular-simplemde>
+```
 
-## Running end-to-end tests
+If you want to customize the configuration, initialize a `ISimpleMdeConfig` in your component:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```typescript
+import { Component } from '@angular/core';
+import { DefaultActions, ISimpleMdeConfig } from 'projects/angular-simplemde/src/lib/editor/editor-config.model';
 
-## Further help
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'editor-demo';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  editorInput = 'test **text**';
+
+  config: ISimpleMdeConfig = {
+    actions: DefaultActions,
+  };
+}
+```
+
+and link it in the template:
+
+```html
+<angular-simplemde [(input)]="editorInput" [config]="config"></angular-simplemde>
+```
+
+In case you want to react explicitly on change events on the input, use the `(inputChange)` directive:
+
+```html
+<angular-simplemde [input]="editorInput" (inputChange)="doSomething($event)" [config]="config"></angular-simplemde>
+```
+
+### Toolbar options
+
+This library defines several default toolbar actions, such as `DefaultActions`, which consist of more categorized
+toolbar actions for text formatting, tables and more.
+
+Additionally, in case you want to embed some special actions inside the default, you can use the `EmbedCustomActionsInDefault()`
+function helper.
+
+```typescript
+
+  config: ISimpleMdeConfig = {
+    actions: EmbedCustomActionsInDefault([
+    {
+        name: 'upper-case',
+        title: 'Convert to Upper Case',
+        icon: 'fa-text-height',
+        action: text => text.toUpperCase()
+    }   
+    ]),
+  };
+```
+
+Hint: use lambdas instead of full function definitions, if you want to keep the `this` scope to your component.
+
+If your action works with asynchronous functions, you can return an `Observable<string>` instead of a string.
