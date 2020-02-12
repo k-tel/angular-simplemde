@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import * as SimpleMDE from 'simplemde';
-import { DefaultActions, ISimpleMdeConfig } from 'projects/angular-simplemde/src/lib/editor/editor-config.model';
 import { Observable } from 'rxjs';
-import { MdeConfig } from 'projects/angular-simplemde/src/lib/editor/mde-config';
+import { MdeConfig } from './mde-config';
+import { DefaultActions, ISimpleMdeConfig } from './editor-config.model';
 
 @Component({
   selector: 'angular-simplemde',
