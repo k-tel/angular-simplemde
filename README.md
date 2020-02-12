@@ -22,6 +22,12 @@ be done in `angular.json` like this:
 // ...
 ```
 
+Or load the SimpleMde stylesheets via the `style.scss/css`:
+
+```css
+@import "~simplemde/dist/simplemde.min.css"; 
+```
+
 ## How to use
 
 For the simplest use-case, just use the component like this
