@@ -1,5 +1,6 @@
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { AngularSimplemdeModule } from '../../../angular-simplemde/src/lib/angular-simplemde.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -7,6 +8,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [
+        AngularSimplemdeModule,
+      ]
     }).compileComponents();
   }));
 
@@ -16,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'editor-demo'`, () => {
+  it(`should have as title 'angular-simplemde demo'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('editor-demo');
+    expect(app.title).toEqual('angular-simplemde demo');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('editor-demo app is running!');
+    expect(compiled.querySelector('h1').textContent).toContain('angular-simplemde demo');
   });
 });
