@@ -7,7 +7,7 @@ import { DefaultActions, ISimpleMdeConfig } from 'projects/angular-simplemde/src
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'editor-demo';
+  title = 'angular-simplemde demo';
 
   editorInput = 'test **text**';
 
