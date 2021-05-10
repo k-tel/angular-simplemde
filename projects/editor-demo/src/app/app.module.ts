@@ -15,4 +15,5 @@ import { AngularSimplemdeModule } from 'projects/angular-simplemde/src/lib/angul
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
